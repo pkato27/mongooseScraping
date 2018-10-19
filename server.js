@@ -24,8 +24,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
-// // Connect to the Mongo DB
-// mongoose.connect("mongodb://localhost/week18Populater");
+
+// mongodb/mongoose setup
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoosscrape";
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
+let mongodbCon = mongoose.connection;
+mongodbCon.on("connected", ()=> console.log("MongoDB connected"));
+
 
 
 // Routes
